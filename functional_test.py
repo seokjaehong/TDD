@@ -1,4 +1,5 @@
 import time
+
 from selenium import webdriver
 import unittest
 from selenium.webdriver.common.keys import Keys
@@ -20,25 +21,42 @@ class NewVisitorTest(unittest.TestCase):
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('To-Do', header_text)
 
+        # inputbox = self.browser.find_element_by_id('id_new_item')
 
+        # self.assertEqual(
+        #     inputbox.get_attribute('placeholder'),
+        #     '작업 아이템 입력'
+        # )
+        # inputbox.send_keys('1. 공작깃털 사기')
+        # # time.sleep(1)
+        # inputbox.send_keys(Keys.ENTER)
+        # # import time
+        # # time.sleep(10)
+        #
+        # table = self.browser.find_element_by_id('id_list_table')
+        # rows = table.find_elements_by_tag_name('tr')
+        # # self.assertTrue(
+        # #     any(row.text == '1. 공작깃털 사기' for row in rows),
+        # #     "신규 작업이 테이블에 표시되지 않는다. 해당 텍스트 :\n%s" % (
+        # #         table.text,
+        # #     )
+        # # )
+        # self.assertIn('1:공작깃털 사기', [row.text for row in rows])
+        #
+        # self.fail('Finish the test!')
         inputbox = self.browser.find_element_by_id('id_new_item')
-
-        self.assertEqual(
-            inputbox.get_attribute('placeholder'),
-            '작업 아이템 입력'
-        )
-        inputbox.send_keys('1:공작깃털 사기')
-        time.sleep(1)
+        inputbox.send_keys('공작깃털을 이용해서 그물만들기')
         inputbox.send_keys(Keys.ENTER)
 
-        table = self.browser.find_element_by_id('id_list_table')
-        print(table.text)
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: 공작깃털 사기' for row in rows),
-            "신규 작업이 테이블에 표시되지 않는다. 해당 텍스트 :\n%s" % (table.text,)
-        )
+        time.sleep(3)
 
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: 공작깃털 사기', [row.text for row in rows])
+        self.assertIn(
+            '2: 공작깃털을 이용해서 그물 만들기',
+            [row.text for row in rows]
+        )
         self.fail('Finish the test!')
 
 
