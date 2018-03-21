@@ -36,6 +36,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys('공작깃털 사기')
         inputbox.send_keys(Keys.ENTER)
         edith_list_url = self.browser.current_url
+
         self.assertRegex(edith_list_url, '/list/.+')
         self.check_for_row_in_list_table('1: 공작깃털 사기')
 
@@ -64,10 +65,10 @@ class NewVisitorTest(LiveServerTestCase):
 
         francis_list_url = self.browser.current_url
         self.assertRegex(francis_list_url, '/lists/.+')
-        self.assertNotEqual(francis_list_url,edith_list_url)
+        self.assertNotEqual(francis_list_url, edith_list_url)
 
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNotIn('공작깃털 사기',page_text)
+        self.assertNotIn('공작깃털 사기', page_text)
         self.assertIn('우유 사기', page_text)
 
         # table = self.browser.find_element_by_id('id_list_table')
@@ -78,7 +79,6 @@ class NewVisitorTest(LiveServerTestCase):
         #     [row.text for row in rows]
         # )
         self.fail('Finish the test!')
-
 
 # if __name__ == '__main__':
 #     unittest.main(warnings='ignore')
