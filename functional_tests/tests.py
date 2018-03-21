@@ -16,6 +16,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.quit()
 
     def check_for_row_in_list_table(self, row_text):
+        time.sleep(1)
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn(row_text, [row.text for row in rows])
@@ -35,8 +36,11 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('공작깃털 사기')
         inputbox.send_keys(Keys.ENTER)
-        edith_list_url = self.browser.current_url
 
+        time.sleep(2)
+
+        edith_list_url = self.browser.current_url
+        # print(edith_list_url)
         self.assertRegex(edith_list_url, '/list/.+')
         self.check_for_row_in_list_table('1: 공작깃털 사기')
 
